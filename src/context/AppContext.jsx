@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const AppContext = createContext();
 
@@ -17,6 +17,32 @@ export function AppProvider({ children }) {
     const saved = localStorage.getItem('np_liked');
     return saved ? JSON.parse(saved) : [];
   });
+
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('np_dark');
+    if (saved) return saved === 'true';
+    // Fallback to system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  const [language, setLanguage] = useState(() => {
+    const saved = localStorage.getItem('np_lang');
+    return saved ? saved : 'hi';
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('np_dark', darkMode.toString());
+  }, [darkMode]);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    localStorage.setItem('np_lang', language);
+  }, [language]);
 
   const login = (userData) => {
     setUser(userData);
@@ -44,11 +70,33 @@ export function AppProvider({ children }) {
     });
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev);
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(prev => prev === 'hi' ? 'en' : 'hi');
+  };
+
   return (
-    <AppContext.Provider value={{ user, login, logout, savedNews, toggleSave, likedNews, toggleLike }}>
+    <AppContext.Provider value={{ 
+      user, 
+      login, 
+      logout, 
+      savedNews, 
+      toggleSave, 
+      likedNews, 
+      toggleLike,
+      darkMode,
+      toggleDarkMode,
+      language,
+      setLanguage,
+      toggleLanguage
+    }}>
       {children}
     </AppContext.Provider>
   );
 }
 
 export const useApp = () => useContext(AppContext);
+
