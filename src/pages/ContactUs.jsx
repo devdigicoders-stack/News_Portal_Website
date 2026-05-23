@@ -96,8 +96,8 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
-      <div className="bg-gray-900 text-white py-16">
+    <div className="min-h-screen transition-colors">
+      <div className="bg-gradient-to-r from-gray-900 to-black text-white py-16 shadow-2xl">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <span className="inline-block bg-red-600 text-white px-4 py-1 text-xs font-black uppercase tracking-widest mb-4">{c.contactUs}</span>
           <h1 className="text-4xl md:text-5xl font-black mb-4">{c.getInTouch}</h1>
@@ -105,86 +105,93 @@ export default function ContactUs() {
         </div>
       </div>
 
-      <div className="flex justify-center py-6 bg-gray-50 border-b border-gray-200">
-        <img src="/top_banner_ad.png" alt="Ad" className="max-w-[970px] w-full h-[90px] object-cover border border-gray-200" />
+      <div className="flex justify-center py-6 border-b border-gray-200 dark:border-zinc-800/50 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md">
+        <img src="/top_banner_ad.png" alt="Ad" className="max-w-[970px] w-full h-[90px] object-cover border border-gray-200 dark:border-zinc-800 rounded shadow-sm" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-              <div className="bg-red-600 text-white p-6 text-center">
-                <FiPhone className="text-3xl mx-auto mb-3" />
-                <h3 className="font-black text-lg mb-1">{c.callUs}</h3>
-                <p className="text-red-100 text-sm">+91-11-4567-8900</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+              <div className="glass-card dark:glass-card-dark bg-gradient-to-b from-red-600 to-red-700 text-white p-8 text-center rounded-2xl shadow-lg border border-red-500/50 transition-transform hover:-translate-y-1">
+                <FiPhone className="text-4xl mx-auto mb-4 animate-bounce" />
+                <h3 className="font-black text-xl mb-2">{c.callUs}</h3>
+                <p className="text-red-100 font-semibold tracking-wide">+91-11-4567-8900</p>
               </div>
-              <div className="bg-gray-900 text-white p-6 text-center">
-                <FiMail className="text-3xl mx-auto mb-3" />
-                <h3 className="font-black text-lg mb-1">{c.emailUs}</h3>
-                <p className="text-gray-300 text-sm">news@newsportal.in</p>
+              <div className="glass-card dark:glass-card-dark bg-gradient-to-b from-gray-900 to-black text-white p-8 text-center rounded-2xl shadow-lg border border-gray-800 transition-transform hover:-translate-y-1">
+                <FiMail className="text-4xl mx-auto mb-4" />
+                <h3 className="font-black text-xl mb-2">{c.emailUs}</h3>
+                <p className="text-gray-300 font-semibold tracking-wide">news@newsportal.in</p>
               </div>
-              <div className="bg-gray-100 text-gray-900 p-6 text-center">
-                <FaWhatsapp className="text-3xl mx-auto mb-3 text-green-600" />
-                <h3 className="font-black text-lg mb-1">{c.whatsapp}</h3>
-                <p className="text-gray-600 text-sm">+91-98765-43210</p>
+              <div className="glass-card dark:glass-card-dark p-8 text-center rounded-2xl shadow-lg transition-transform hover:-translate-y-1">
+                <FaWhatsapp className="text-4xl mx-auto mb-4 text-green-500 drop-shadow-md" />
+                <h3 className="font-black text-xl mb-2 text-gray-900 dark:text-white">{c.whatsapp}</h3>
+                <p className="text-gray-600 dark:text-zinc-400 font-semibold tracking-wide">+91-98765-43210</p>
               </div>
             </div>
 
-            <div className="mb-12">
-              <h2 className="text-2xl font-black mb-6 border-l-4 border-red-600 pl-4">{c.sendAMessage}</h2>
+            <div className="mb-14 glass-card dark:glass-card-dark p-8 md:p-10 rounded-3xl shadow-xl">
+              <h2 className="text-2xl font-black mb-8 border-l-4 border-red-600 pl-4 text-gray-900 dark:text-white">{c.sendAMessage}</h2>
               {sent && (
                 <div className="flex items-center gap-3 bg-green-50 border border-green-300 text-green-800 p-4 mb-6 font-bold">
                   <FiCheckCircle className="text-green-600 text-xl" /> {c.successMsg}
                 </div>
               )}
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">{c.nameLabel}</label>
+                    <label className="block text-xs font-black text-gray-700 dark:text-zinc-300 uppercase tracking-widest mb-2">{c.nameLabel}</label>
                     <input type="text" required placeholder={language === 'hi' ? "राहुल शर्मा" : "Rahul Sharma"} value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                      className="w-full border-2 border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors" />
+                      className="w-full bg-white/50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white px-5 py-3.5 rounded-xl text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-all placeholder:text-gray-400 dark:placeholder:text-zinc-600" />
                   </div>
                   <div>
-                    <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">{c.emailLabel}</label>
+                    <label className="block text-xs font-black text-gray-700 dark:text-zinc-300 uppercase tracking-widest mb-2">{c.emailLabel}</label>
                     <input type="email" required placeholder="rahul@email.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})}
-                      className="w-full border-2 border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors" />
+                      className="w-full bg-white/50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white px-5 py-3.5 rounded-xl text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-all placeholder:text-gray-400 dark:placeholder:text-zinc-600" />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">{c.subjectLabel}</label>
+                  <label className="block text-xs font-black text-gray-700 dark:text-zinc-300 uppercase tracking-widest mb-2">{c.subjectLabel}</label>
                   <select value={form.subject} onChange={e => setForm({...form, subject: e.target.value})} required
-                    className="w-full border-2 border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-red-600 bg-white">
-                    <option value="">{c.selectTopic}</option>
+                    className="w-full bg-white/50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white px-5 py-3.5 rounded-xl text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-all">
+                    <option value="" className="bg-white dark:bg-zinc-900 text-gray-900 dark:text-white">{c.selectTopic}</option>
                     {c.topics.map((t, idx) => (
-                      <option key={idx} value={t}>{t}</option>
+                      <option key={idx} value={t} className="bg-white dark:bg-zinc-900 text-gray-900 dark:text-white">{t}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-black text-gray-700 uppercase tracking-wider mb-2">{c.messageLabel}</label>
+                  <label className="block text-xs font-black text-gray-700 dark:text-zinc-300 uppercase tracking-widest mb-2">{c.messageLabel}</label>
                   <textarea required rows={6} placeholder={c.writeMsg} value={form.message} onChange={e => setForm({...form, message: e.target.value})}
-                    className="w-full border-2 border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-red-600 resize-none"></textarea>
+                    className="w-full bg-white/50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white px-5 py-4 rounded-xl text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 resize-none transition-all placeholder:text-gray-400 dark:placeholder:text-zinc-600"></textarea>
                 </div>
-                <button type="submit" className="flex items-center gap-2 bg-red-600 text-white font-black px-10 py-4 hover:bg-red-700 transition-colors uppercase tracking-wider text-sm">
-                  <FiSend /> {c.sendBtn}
+                <button type="submit" className="flex items-center justify-center w-full sm:w-auto gap-2 bg-red-600 text-white font-black px-12 py-4 rounded-xl hover:bg-red-700 transition-colors uppercase tracking-widest text-sm shadow-md hover:shadow-lg">
+                  <FiSend className="text-lg" /> {c.sendBtn}
                 </button>
               </form>
             </div>
 
             <div>
-              <h2 className="text-2xl font-black mb-6 border-l-4 border-red-600 pl-4">{c.ourOffices}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <h2 className="text-2xl font-black mb-6 border-l-4 border-red-600 pl-4 text-gray-900 dark:text-white">{c.ourOffices}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {c.offices.map((o, i) => (
-                  <div key={i} className="border border-gray-200 p-5 hover:border-red-600 transition-colors">
-                    <div className="flex items-center gap-2 mb-3"><FiMapPin className="text-red-600" /><h3 className="font-black text-sm">{o.city}</h3></div>
-                    <p className="text-xs text-gray-600 leading-relaxed mb-3">{o.address}</p>
-                    <p className="text-xs font-bold flex items-center gap-1"><FiPhone className="text-red-600" /> {staticOffices[i].phone}</p>
-                    <p className="text-xs font-bold flex items-center gap-1 mt-1"><FiMail className="text-red-600" /> {staticOffices[i].email}</p>
+                  <div key={i} className="glass-card dark:glass-card-dark p-6 rounded-2xl hover:border-red-600/50 dark:hover:border-red-600/50 transition-all shadow-sm hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-4">
+                      <FiMapPin className="text-red-600 text-xl" />
+                      <h3 className="font-black text-gray-900 dark:text-white text-base">{o.city}</h3>
+                    </div>
+                    <p className="text-sm text-gray-600 dark:text-zinc-400 leading-relaxed mb-4">{o.address}</p>
+                    <p className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-2"><FiPhone className="text-red-600" /> {staticOffices[i].phone}</p>
+                    <p className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2"><FiMail className="text-red-600" /> {staticOffices[i].email}</p>
                   </div>
                 ))}
               </div>
-              <div className="mt-8 border-2 border-dashed border-gray-300 bg-gray-50 h-56 flex items-center justify-center text-gray-400">
-                <div className="text-center"><FiMapPin className="text-4xl mx-auto mb-2 text-red-400" /><p className="font-bold">{c.mapLabel}</p><p className="text-sm">{c.mapEmbed}</p></div>
+              <div className="mt-8 border-2 border-dashed border-gray-300 dark:border-zinc-700 bg-gray-50/50 dark:bg-zinc-900/50 rounded-2xl h-64 flex items-center justify-center text-gray-400 dark:text-zinc-600">
+                <div className="text-center">
+                  <FiMapPin className="text-5xl mx-auto mb-3 text-red-400/50 dark:text-red-900" />
+                  <p className="font-bold text-gray-600 dark:text-zinc-400">{c.mapLabel}</p>
+                  <p className="text-sm mt-1">{c.mapEmbed}</p>
+                </div>
               </div>
             </div>
           </div>

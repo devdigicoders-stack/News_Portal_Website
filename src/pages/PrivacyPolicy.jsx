@@ -93,45 +93,45 @@ export default function PrivacyPolicy() {
   const c = contentTranslations[language] || contentTranslations['en'];
 
   return (
-    <div className="bg-white min-h-screen">
-      <div className="bg-gray-900 text-white py-14">
+    <div className="min-h-screen transition-colors">
+      <div className="bg-gradient-to-r from-gray-900 to-black text-white py-14 shadow-2xl">
         <div className="max-w-5xl mx-auto px-4 text-center">
-          <span className="inline-block bg-red-600 text-white px-4 py-1 text-xs font-black uppercase tracking-widest mb-4">{c.legalBadge}</span>
-          <h1 className="text-4xl md:text-5xl font-black mb-4">{c.pageTitle}</h1>
-          <p className="text-gray-400 text-sm">{c.lastUpdated}</p>
+          <span className="inline-block bg-red-600 text-white px-4 py-1 text-xs font-black uppercase tracking-widest mb-4 rounded shadow-sm">{c.legalBadge}</span>
+          <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight drop-shadow-md">{c.pageTitle}</h1>
+          <p className="text-gray-400 text-sm font-semibold">{c.lastUpdated}</p>
         </div>
       </div>
 
-      <div className="flex justify-center py-6 bg-gray-50 border-b border-gray-200">
-        <img src="/top_banner_ad.png" alt="Ad" className="max-w-[970px] w-full h-[90px] object-cover border border-gray-200" />
+      <div className="flex justify-center py-6 border-b border-gray-200 dark:border-zinc-800/50 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md">
+        <img src="/top_banner_ad.png" alt="Ad" className="max-w-[970px] w-full h-[90px] object-cover border border-gray-200 dark:border-zinc-800 rounded shadow-sm" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-8">
             {/* Quick Summary */}
-            <div className="bg-green-50 border border-green-200 p-6 mb-10">
-              <div className="flex items-center gap-2 mb-4">
-                <FiShield className="text-green-600 text-2xl" />
-                <h2 className="font-black text-green-800 text-lg">{c.promiseTitle}</h2>
+            <div className="bg-green-50 dark:bg-green-950/20 border-l-4 border-green-500 dark:border-green-600 p-6 mb-10 rounded-r-xl shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <FiShield className="text-green-600 dark:text-green-500 text-2xl" />
+                <h2 className="font-black text-green-800 dark:text-green-400 text-lg">{c.promiseTitle}</h2>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {c.highlights.map((h, i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm text-green-700 font-semibold">
-                    <span className="text-green-500 font-black">✓</span> {h}
+                  <div key={i} className="flex items-center gap-2 text-sm text-green-700 dark:text-green-300 font-semibold">
+                    <span className="text-green-500 dark:text-green-400 font-black text-lg">✓</span> {h}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-6 glass-card dark:glass-card-dark p-8 md:p-10 rounded-3xl shadow-xl">
               {c.sections.map((sec, i) => (
-                <div key={i} className="border-b border-gray-100 pb-8 last:border-0">
-                  <h2 className="text-xl font-black text-gray-900 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-6 bg-red-600 inline-block rounded-full shrink-0"></span>
+                <div key={i} className="border-b border-gray-100 dark:border-zinc-800/50 pb-8 last:border-0 last:pb-0">
+                  <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+                    <span className="w-2 h-6 bg-red-600 inline-block rounded-full shrink-0 shadow-sm"></span>
                     {sec.title}
                   </h2>
-                  <p className="text-gray-600 leading-relaxed text-sm">{sec.content}</p>
+                  <p className="text-gray-600 dark:text-zinc-400 leading-relaxed text-sm md:text-base">{sec.content}</p>
                 </div>
               ))}
             </div>

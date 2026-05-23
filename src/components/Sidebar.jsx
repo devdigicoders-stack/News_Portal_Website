@@ -103,8 +103,8 @@ export default function Sidebar() {
     <div className="w-full flex flex-col gap-8 font-sans transition-colors">
       
       {/* 1. City News & Weather Selector Widget */}
-      <div className="border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm rounded-sm">
-        <div className="flex items-center gap-2 border-b border-gray-100 dark:border-zinc-800 pb-3 mb-4">
+      <div className="glass-card dark:glass-card-dark p-5 shadow-lg rounded-xl border border-white/20 dark:border-zinc-800/50">
+        <div className="flex items-center gap-2 border-b border-gray-200/50 dark:border-zinc-800 pb-3 mb-4">
           <FiMapPin className="text-red-600 animate-bounce" />
           <h3 className="font-black text-gray-900 dark:text-white uppercase tracking-wider text-xs">
             {t("City Updates")}
@@ -161,8 +161,8 @@ export default function Sidebar() {
       <Rashifal />
 
       {/* 3. Interactive Live Readers Poll Widget */}
-      <div className="border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm rounded-sm">
-        <div className="flex items-center gap-2 border-b border-gray-100 dark:border-zinc-800 pb-3 mb-4">
+      <div className="glass-card dark:glass-card-dark p-6 shadow-lg rounded-xl border border-white/20 dark:border-zinc-800/50">
+        <div className="flex items-center gap-2 border-b border-gray-200/50 dark:border-zinc-800 pb-3 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
           <h3 className="font-black text-gray-900 dark:text-white uppercase tracking-wider text-xs">{t("Live Readers Poll")}</h3>
         </div>
@@ -254,7 +254,8 @@ export default function Sidebar() {
       </div>
 
       {/* 4. Newsletter Signup Widget */}
-      <div className="bg-zinc-950 text-white p-6 rounded-sm shadow-md text-center border-b-4 border-red-600">
+      <div className="bg-gradient-to-br from-zinc-900 to-black text-white p-6 rounded-xl shadow-xl text-center border border-zinc-800 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-yellow-500"></div>
         <h3 className="text-xl font-black mb-2 uppercase tracking-wide">{t("Stay Updated")}</h3>
         <p className="text-sm text-gray-400 mb-4">{t("Newsletter Sub")}</p>
         
@@ -271,16 +272,16 @@ export default function Sidebar() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder={t("Your Email Address")} 
-              className="px-4 py-2.5 text-black w-full focus:outline-none focus:ring-2 focus:ring-red-600 text-sm font-semibold rounded-sm" 
+              className="px-4 py-2.5 bg-white text-black dark:bg-zinc-800 dark:text-white w-full focus:outline-none focus:ring-2 focus:ring-red-600 text-sm font-semibold rounded-md shadow-inner" 
             />
-            <button type="submit" className="bg-red-600 text-white font-black py-2.5 uppercase tracking-wider hover:bg-red-700 transition-colors text-xs rounded-sm">{t("Subscribe")}</button>
+            <button type="submit" className="bg-gradient-to-r from-red-600 to-red-700 text-white font-black py-2.5 uppercase tracking-wider hover:from-red-500 hover:to-red-600 transition-colors text-xs rounded-md shadow-md">{t("Subscribe")}</button>
           </form>
         )}
       </div>
 
       {/* Ad Placeholder */}
-      <div className="w-full flex justify-center bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800 rounded-sm">
-         <img src="/sidebar_ad.png" alt="Advertisement" className="w-full max-w-[300px] h-[250px] object-cover cursor-pointer" />
+      <div className="w-full flex justify-center bg-gray-100 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+         <img src="/sidebar_ad.png" alt="Advertisement" className="w-full max-w-[300px] h-[250px] object-cover cursor-pointer hover:scale-105 transition-transform duration-500" />
       </div>
 
       {/* 5. Trending Section */}
@@ -321,8 +322,8 @@ export default function Sidebar() {
       </div>
 
       {/* Ad Placeholder Tall */}
-      <div className="w-full flex justify-center bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800 sticky top-32">
-         <img src="/sidebar_tall_ad.png" alt="Advertisement" className="w-full max-w-[300px] h-[600px] object-cover cursor-pointer" />
+      <div className="w-full flex justify-center bg-gray-100 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm sticky top-32">
+         <img src="/sidebar_tall_ad.png" alt="Advertisement" className="w-full max-w-[300px] h-[600px] object-cover cursor-pointer hover:scale-105 transition-transform duration-500" />
       </div>
     </div>
   );

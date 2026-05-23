@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingLiveTV from './components/FloatingLiveTV';
+import AnimatedPage from './components/AnimatedPage';
 
 // Pages
 import Home from './pages/Home';
@@ -30,32 +32,42 @@ function ScrollToTop() {
   return null;
 }
 
+function AnimatedRoutes() {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<AnimatedPage><Home /></AnimatedPage>} />
+        <Route path="/news/:id" element={<AnimatedPage><NewsDetail /></AnimatedPage>} />
+        <Route path="/category/:categoryId" element={<AnimatedPage><CategoryNews /></AnimatedPage>} />
+        <Route path="/search" element={<AnimatedPage><SearchNews /></AnimatedPage>} />
+        <Route path="/about" element={<AnimatedPage><AboutUs /></AnimatedPage>} />
+        <Route path="/contact" element={<AnimatedPage><ContactUs /></AnimatedPage>} />
+        <Route path="/terms" element={<AnimatedPage><TermsConditions /></AnimatedPage>} />
+        <Route path="/privacy" element={<AnimatedPage><PrivacyPolicy /></AnimatedPage>} />
+        <Route path="/profile" element={<AnimatedPage><Profile /></AnimatedPage>} />
+        <Route path="/saved" element={<AnimatedPage><SavedNews /></AnimatedPage>} />
+        <Route path="/change-password" element={<AnimatedPage><ChangePassword /></AnimatedPage>} />
+        <Route path="/login" element={<AnimatedPage><Login /></AnimatedPage>} />
+        <Route path="/live-tv" element={<AnimatedPage><LiveTV /></AnimatedPage>} />
+        {/* Videos route pointing to LiveTV broadcast hub */}
+        <Route path="/videos" element={<AnimatedPage><LiveTV /></AnimatedPage>} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 function App() {
   return (
     <AppProvider>
       <Router>
         <ScrollToTop />
-        <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-zinc-950 dark:text-zinc-100 text-zinc-900 transition-colors duration-200 font-sans">
+        <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 to-gray-200 dark:from-zinc-950 dark:to-zinc-900 dark:text-zinc-50 text-zinc-900 transition-colors duration-500 font-sans">
           <Navbar />
           
           <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/news/:id" element={<NewsDetail />} />
-              <Route path="/category/:categoryId" element={<CategoryNews />} />
-              <Route path="/search" element={<SearchNews />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/terms" element={<TermsConditions />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/saved" element={<SavedNews />} />
-              <Route path="/change-password" element={<ChangePassword />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/live-tv" element={<LiveTV />} />
-              {/* Videos route pointing to LiveTV broadcast hub */}
-              <Route path="/videos" element={<LiveTV />} />
-            </Routes>
+            <AnimatedRoutes />
           </main>
           
           <Footer />
@@ -69,3 +81,4 @@ function App() {
 }
 
 export default App;
+

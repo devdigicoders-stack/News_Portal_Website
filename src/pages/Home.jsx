@@ -40,19 +40,19 @@ const Home = () => {
   );
 
   return (
-    <div className="bg-white dark:bg-zinc-950 min-h-screen pb-12 transition-colors">
+    <div className="bg-transparent min-h-screen pb-12 transition-colors">
       
       {/* Top Banner Ad */}
-      <div className="max-w-7xl mx-auto py-4 px-4 hidden md:flex justify-center bg-gray-50 dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 transition-colors">
+      <div className="max-w-7xl mx-auto py-4 px-4 hidden md:flex justify-center bg-transparent transition-colors">
         <div className="w-full max-w-[970px] flex justify-center">
-          <img src="/top_banner_ad.png" alt="Advertisement" className="w-full h-[90px] object-cover bg-gray-200 border border-gray-300 dark:border-zinc-800 cursor-pointer" />
+          <img src="/top_banner_ad.png" alt="Advertisement" className="w-full h-[90px] object-cover rounded-xl shadow-sm border border-white/20 dark:border-zinc-800/50 cursor-pointer hover:shadow-md transition-shadow" />
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 mt-6">
         
         {/* Interactive Live Highlights bar */}
-        <div className="bg-red-50 dark:bg-red-950/20 border-l-4 border-red-600 p-3 mb-6 rounded-r flex items-center justify-between flex-wrap gap-2 shadow-sm">
+        <div className="glass-card dark:glass-card-dark border-l-4 border-red-600 p-3 mb-8 rounded-xl flex items-center justify-between flex-wrap gap-2 shadow-md">
           <div className="flex items-center gap-2">
             <span className="text-xs font-black text-red-600 dark:text-red-400 uppercase tracking-widest shrink-0">{t("Live Updates:")}</span>
             <marquee className="text-xs font-semibold text-gray-800 dark:text-zinc-200 w-[200px] sm:w-[450px] md:w-[600px] lg:w-[800px]" scrollamount="4">
@@ -69,14 +69,14 @@ const Home = () => {
         {/* Top Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-1 lg:gap-6 mb-10">
           {/* Main Featured (Left, larger) */}
-          <div className="lg:col-span-7 xl:col-span-8 h-[400px] lg:h-[500px] shadow-lg rounded overflow-hidden">
+          <div className="lg:col-span-7 xl:col-span-8 h-[400px] lg:h-[500px] shadow-xl rounded-2xl overflow-hidden group">
             {mainHero && <NewsCard news={mainHero} variant="overlay" featured={true} />}
           </div>
           
           {/* Sub Featured Grid (Right, 2x2 grid) */}
           <div className="lg:col-span-5 xl:col-span-4 grid grid-cols-2 gap-1 lg:gap-4 mt-1 lg:mt-0">
              {subHero.map((news) => (
-                <div key={news.id} className="h-[196px] lg:h-[242px] shadow-md rounded overflow-hidden">
+                <div key={news.id} className="h-[196px] lg:h-[242px] shadow-lg rounded-2xl overflow-hidden">
                    <NewsCard news={news} variant="overlay" />
                 </div>
              ))}
@@ -88,7 +88,7 @@ const Home = () => {
         {/* 3-Column Highlights (Tech | Business | Entertainment) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
            {/* Tech */}
-           <div className="bg-gray-50/50 dark:bg-zinc-900/40 p-4 rounded-sm border border-gray-100 dark:border-zinc-900 shadow-sm">
+           <div className="glass-card dark:glass-card-dark p-5 rounded-2xl shadow-lg border border-white/20 dark:border-zinc-800/50">
              <SectionHeader title={t("Technology")} link="/category/technology" />
              <div className="flex flex-col">
                {techNews[0] && <NewsCard news={techNews[0]} variant="standard" />}
@@ -99,7 +99,7 @@ const Home = () => {
            </div>
 
            {/* Business */}
-           <div className="bg-gray-50/50 dark:bg-zinc-900/40 p-4 rounded-sm border border-gray-100 dark:border-zinc-900 shadow-sm">
+           <div className="glass-card dark:glass-card-dark p-5 rounded-2xl shadow-lg border border-white/20 dark:border-zinc-800/50">
              <SectionHeader title={t("Business")} link="/category/business" color="blue-650" />
              <div className="flex flex-col">
                {businessNews[0] && <NewsCard news={businessNews[0]} variant="standard" />}
@@ -110,7 +110,7 @@ const Home = () => {
            </div>
 
            {/* Entertainment */}
-           <div className="bg-gray-50/50 dark:bg-zinc-900/40 p-4 rounded-sm border border-gray-100 dark:border-zinc-900 shadow-sm">
+           <div className="glass-card dark:glass-card-dark p-5 rounded-2xl shadow-lg border border-white/20 dark:border-zinc-800/50">
              <SectionHeader title={t("Entertainment")} link="/category/entertainment" color="pink-600" />
              <div className="flex flex-col">
                {entertainmentNews[0] && <NewsCard news={entertainmentNews[0]} variant="standard" />}
@@ -124,7 +124,8 @@ const Home = () => {
       </div> {/* End container for full width break */}
 
       {/* Full Width Videos Section (Dark / Red Ticker) */}
-      <div className="bg-zinc-950 py-12 mb-10 border-y-4 border-red-600 shadow-xl">
+      <div className="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 py-12 mb-10 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600"></div>
         <div className="max-w-7xl mx-auto px-4">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-black uppercase text-white flex items-center gap-2 tracking-tight">
@@ -135,7 +136,7 @@ const Home = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {videoNews.map((news) => (
-                 <div key={news.id} className="h-64 shadow-lg rounded overflow-hidden">
+                 <div key={news.id} className="h-64 shadow-xl rounded-2xl overflow-hidden border border-zinc-800">
                     <NewsCard news={news} variant="overlay" />
                  </div>
               ))}

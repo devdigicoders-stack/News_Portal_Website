@@ -47,33 +47,33 @@ export default function TermsConditions() {
   const t = contentTranslations[language] || contentTranslations['en'];
 
   return (
-    <div className="bg-white min-h-screen">
-      <div className="bg-gray-900 text-white py-14">
+    <div className="min-h-screen transition-colors">
+      <div className="bg-gradient-to-r from-gray-900 to-black text-white py-14 shadow-2xl">
         <div className="max-w-5xl mx-auto px-4 text-center">
-          <span className="inline-block bg-red-600 text-white px-4 py-1 text-xs font-black uppercase tracking-widest mb-4">{t.legalBadge}</span>
-          <h1 className="text-4xl md:text-5xl font-black mb-4">{t.pageTitle}</h1>
-          <p className="text-gray-400 text-sm">{t.lastUpdated}</p>
+          <span className="inline-block bg-red-600 text-white px-4 py-1 text-xs font-black uppercase tracking-widest mb-4 rounded shadow-sm">{t.legalBadge}</span>
+          <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight drop-shadow-md">{t.pageTitle}</h1>
+          <p className="text-gray-400 text-sm font-semibold">{t.lastUpdated}</p>
         </div>
       </div>
 
-      <div className="flex justify-center py-6 bg-gray-50 border-b border-gray-200">
-        <img src="/top_banner_ad.png" alt="Ad" className="max-w-[970px] w-full h-[90px] object-cover border border-gray-200" />
+      <div className="flex justify-center py-6 border-b border-gray-200 dark:border-zinc-800/50 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md">
+        <img src="/top_banner_ad.png" alt="Ad" className="max-w-[970px] w-full h-[90px] object-cover border border-gray-200 dark:border-zinc-800 rounded shadow-sm" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-8">
-            <div className="bg-amber-50 border-l-4 border-amber-500 p-4 mb-10">
-              <p className="text-amber-800 font-bold text-sm">{t.warningText}</p>
+            <div className="bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-500 dark:border-amber-600 p-5 mb-10 rounded-r-lg shadow-sm">
+              <p className="text-amber-800 dark:text-amber-200 font-bold text-sm leading-relaxed">{t.warningText}</p>
             </div>
-            <div className="space-y-8">
+            <div className="space-y-6 glass-card dark:glass-card-dark p-8 md:p-10 rounded-3xl shadow-xl">
               {t.sections.map((sec, i) => (
-                <div key={i} className="border-b border-gray-100 pb-8 last:border-0">
-                  <h2 className="text-xl font-black text-gray-900 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-6 bg-red-600 inline-block rounded-full shrink-0"></span>
+                <div key={i} className="border-b border-gray-100 dark:border-zinc-800/50 pb-8 last:border-0 last:pb-0">
+                  <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+                    <span className="w-2 h-6 bg-red-600 inline-block rounded-full shrink-0 shadow-sm"></span>
                     {sec.title}
                   </h2>
-                  <p className="text-gray-600 leading-relaxed text-sm">{sec.content}</p>
+                  <p className="text-gray-600 dark:text-zinc-400 leading-relaxed text-sm md:text-base">{sec.content}</p>
                 </div>
               ))}
             </div>

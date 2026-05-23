@@ -112,9 +112,9 @@ export default function AboutUs() {
   ];
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="min-h-screen transition-colors">
       {/* Hero Section */}
-      <div className="relative bg-gray-900 text-white overflow-hidden">
+      <div className="relative bg-gradient-to-r from-gray-900 to-black text-white overflow-hidden shadow-2xl">
         <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1400&auto=format&fit=crop" alt="Newsroom" className="absolute inset-0 w-full h-full object-cover opacity-20" />
         <div className="relative max-w-5xl mx-auto px-4 py-20 text-center">
           <div className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 text-xs font-black uppercase tracking-widest mb-6">
@@ -130,8 +130,8 @@ export default function AboutUs() {
       </div>
 
       {/* Ad Banner */}
-      <div className="flex justify-center py-6 bg-gray-50 border-b border-gray-200">
-        <img src="/top_banner_ad.png" alt="Ad" className="max-w-[970px] w-full h-[90px] object-cover border border-gray-200" />
+      <div className="flex justify-center py-6 border-b border-gray-200 dark:border-zinc-800/50 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md">
+        <img src="/top_banner_ad.png" alt="Ad" className="max-w-[970px] w-full h-[90px] object-cover border border-gray-200 dark:border-zinc-800 rounded shadow-sm" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -140,34 +140,34 @@ export default function AboutUs() {
 
             {/* Our Mission */}
             <section className="mb-14">
-              <h2 className="text-3xl font-black mb-2 border-l-4 border-red-600 pl-4">{c.ourMission}</h2>
-              <p className="text-gray-500 text-sm mb-6 pl-5">{c.missionSub}</p>
+              <h2 className="text-3xl font-black mb-2 border-l-4 border-red-600 pl-4 text-gray-900 dark:text-white">{c.ourMission}</h2>
+              <p className="text-gray-500 dark:text-zinc-400 text-sm mb-6 pl-5">{c.missionSub}</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gray-50 p-6 border border-gray-100">
-                  <FiTrendingUp className="text-red-600 text-3xl mb-3" />
-                  <h3 className="text-lg font-black mb-2">{c.m1Title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{c.m1Desc}</p>
+                <div className="glass-card dark:glass-card-dark p-6 rounded-2xl transition-transform hover:-translate-y-1">
+                  <FiTrendingUp className="text-red-600 text-4xl mb-4" />
+                  <h3 className="text-xl font-black mb-2 text-gray-900 dark:text-white">{c.m1Title}</h3>
+                  <p className="text-gray-600 dark:text-zinc-400 text-sm leading-relaxed">{c.m1Desc}</p>
                 </div>
-                <div className="bg-gray-50 p-6 border border-gray-100">
-                  <FiGlobe className="text-red-600 text-3xl mb-3" />
-                  <h3 className="text-lg font-black mb-2">{c.m2Title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{c.m2Desc}</p>
+                <div className="glass-card dark:glass-card-dark p-6 rounded-2xl transition-transform hover:-translate-y-1">
+                  <FiGlobe className="text-red-600 text-4xl mb-4" />
+                  <h3 className="text-xl font-black mb-2 text-gray-900 dark:text-white">{c.m2Title}</h3>
+                  <p className="text-gray-600 dark:text-zinc-400 text-sm leading-relaxed">{c.m2Desc}</p>
                 </div>
-                <div className="bg-gray-50 p-6 border border-gray-100">
-                  <FiAward className="text-red-600 text-3xl mb-3" />
-                  <h3 className="text-lg font-black mb-2">{c.m3Title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{c.m3Desc}</p>
+                <div className="glass-card dark:glass-card-dark p-6 rounded-2xl transition-transform hover:-translate-y-1">
+                  <FiAward className="text-red-600 text-4xl mb-4" />
+                  <h3 className="text-xl font-black mb-2 text-gray-900 dark:text-white">{c.m3Title}</h3>
+                  <p className="text-gray-600 dark:text-zinc-400 text-sm leading-relaxed">{c.m3Desc}</p>
                 </div>
-                <div className="bg-gray-50 p-6 border border-gray-100">
-                  <FiUsers className="text-red-600 text-3xl mb-3" />
-                  <h3 className="text-lg font-black mb-2">{c.m4Title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{c.m4Desc}</p>
+                <div className="glass-card dark:glass-card-dark p-6 rounded-2xl transition-transform hover:-translate-y-1">
+                  <FiUsers className="text-red-600 text-4xl mb-4" />
+                  <h3 className="text-xl font-black mb-2 text-gray-900 dark:text-white">{c.m4Title}</h3>
+                  <p className="text-gray-600 dark:text-zinc-400 text-sm leading-relaxed">{c.m4Desc}</p>
                 </div>
               </div>
             </section>
 
             {/* Stats */}
-            <section className="bg-gray-900 text-white p-10 mb-14">
+            <section className="bg-gradient-to-r from-gray-900 to-zinc-900 dark:from-black dark:to-zinc-900 text-white p-10 mb-14 rounded-2xl shadow-xl border border-gray-800">
               <h2 className="text-2xl font-black mb-8 text-center uppercase tracking-wider">{c.numbersTitle}</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {stats.map((s, i) => (
@@ -182,16 +182,16 @@ export default function AboutUs() {
 
             {/* Team */}
             <section className="mb-14">
-              <h2 className="text-3xl font-black mb-2 border-l-4 border-red-600 pl-4">{c.teamTitle}</h2>
-              <p className="text-gray-500 text-sm mb-6 pl-5">{c.teamSub}</p>
+              <h2 className="text-3xl font-black mb-2 border-l-4 border-red-600 pl-4 text-gray-900 dark:text-white">{c.teamTitle}</h2>
+              <p className="text-gray-500 dark:text-zinc-400 text-sm mb-6 pl-5">{c.teamSub}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {c.team.map((m, i) => (
-                  <div key={i} className="flex gap-4 p-4 border border-gray-100 hover:shadow-md transition-shadow">
-                    <img src={teamImages[i]} alt={m.name} className="w-20 h-20 object-cover rounded-full shrink-0 border-4 border-red-100" />
+                  <div key={i} className="flex gap-4 p-5 glass-card dark:glass-card-dark rounded-xl hover:shadow-lg transition-all border border-gray-200/50 dark:border-zinc-800/50">
+                    <img src={teamImages[i]} alt={m.name} className="w-20 h-20 object-cover rounded-full shrink-0 border-4 border-red-100 dark:border-red-900/30" />
                     <div>
-                      <h3 className="font-black text-gray-900">{m.name}</h3>
-                      <p className="text-xs font-bold text-red-600 uppercase mb-2">{m.role}</p>
-                      <p className="text-sm text-gray-600">{m.bio}</p>
+                      <h3 className="font-black text-gray-900 dark:text-white text-lg">{m.name}</h3>
+                      <p className="text-xs font-bold text-red-600 dark:text-red-400 uppercase mb-2 tracking-wider">{m.role}</p>
+                      <p className="text-sm text-gray-600 dark:text-zinc-400 leading-relaxed">{m.bio}</p>
                     </div>
                   </div>
                 ))}
@@ -200,8 +200,8 @@ export default function AboutUs() {
 
             {/* Latest News from us */}
             <section>
-              <h2 className="text-2xl font-black mb-6 border-l-4 border-red-600 pl-4">{c.latestDesk}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <h2 className="text-2xl font-black mb-6 border-l-4 border-red-600 pl-4 text-gray-900 dark:text-white">{c.latestDesk}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {latestNews.map(n => <NewsCard key={n.id} news={translateNews(n, language)} variant="standard" />)}
               </div>
             </section>
@@ -214,15 +214,15 @@ export default function AboutUs() {
       </div>
 
       {/* Social Follow Bar */}
-      <div className="bg-red-600 text-white py-10">
+      <div className="bg-gradient-to-r from-red-600 to-red-800 dark:from-red-700 dark:to-red-900 text-white py-12 shadow-inner">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h3 className="text-2xl font-black mb-2">{c.followTitle}</h3>
           <p className="text-red-200 text-sm mb-6">{c.followSub}</p>
-          <div className="flex justify-center gap-6 flex-wrap">
-            <a href="#" className="flex items-center gap-2 bg-white text-blue-700 font-black px-6 py-3 rounded hover:bg-gray-100 transition-colors"><FaFacebook size={20} /> Facebook · 12M</a>
-            <a href="#" className="flex items-center gap-2 bg-white text-sky-500 font-black px-6 py-3 rounded hover:bg-gray-100 transition-colors"><FaTwitter size={20} /> Twitter · 8.5M</a>
-            <a href="#" className="flex items-center gap-2 bg-white text-red-600 font-black px-6 py-3 rounded hover:bg-gray-100 transition-colors"><FaYoutube size={20} /> YouTube · 6M</a>
-            <a href="#" className="flex items-center gap-2 bg-white text-pink-600 font-black px-6 py-3 rounded hover:bg-gray-100 transition-colors"><FaInstagram size={20} /> Instagram · 5M</a>
+          <div className="flex justify-center gap-6 flex-wrap mt-2">
+            <a href="#" className="flex items-center gap-2 bg-white text-blue-700 font-black px-6 py-3 rounded-xl hover:bg-gray-100 hover:scale-105 transition-all shadow-md"><FaFacebook size={20} /> Facebook · 12M</a>
+            <a href="#" className="flex items-center gap-2 bg-white text-sky-500 font-black px-6 py-3 rounded-xl hover:bg-gray-100 hover:scale-105 transition-all shadow-md"><FaTwitter size={20} /> Twitter · 8.5M</a>
+            <a href="#" className="flex items-center gap-2 bg-white text-red-600 font-black px-6 py-3 rounded-xl hover:bg-gray-100 hover:scale-105 transition-all shadow-md"><FaYoutube size={20} /> YouTube · 6M</a>
+            <a href="#" className="flex items-center gap-2 bg-white text-pink-600 font-black px-6 py-3 rounded-xl hover:bg-gray-100 hover:scale-105 transition-all shadow-md"><FaInstagram size={20} /> Instagram · 5M</a>
           </div>
         </div>
       </div>

@@ -127,3 +127,12 @@ body {
   font-family: "Hind", sans-serif;
 }
 
+/* Ensure all buttons have pointer cursor */
+button, 
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  cursor: pointer;
+}
+

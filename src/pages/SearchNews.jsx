@@ -15,29 +15,36 @@ export default function SearchNews() {
   );
 
   return (
-    <div className="bg-white min-h-screen py-8">
+    <div className="py-8 transition-colors">
       <div className="max-w-7xl mx-auto px-4">
         {/* Page Header */}
-        <div className="flex items-center justify-between border-b-2 border-black pb-2 mb-8">
-           <h1 className="text-2xl font-black text-gray-900 uppercase">
-             Search Results for: <span className="text-red-600">"{query}"</span>
+        <div className="flex items-center justify-between border-b-2 border-gray-200 dark:border-zinc-800 pb-4 mb-8">
+           <h1 className="text-2xl lg:text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tight">
+             Search Results for: <span className="text-red-600 dark:text-red-500">"{query}"</span>
            </h1>
-           <span className="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">{searchResults.length} Results</span>
+           <span className="text-sm font-bold text-gray-600 dark:text-gray-300 bg-white/50 dark:bg-zinc-900/50 px-4 py-1.5 rounded-full border border-gray-200/50 dark:border-zinc-800/50 shadow-sm backdrop-blur-sm">
+             {searchResults.length} Results
+           </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-8">
             {searchResults.length > 0 ? (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-6">
                 {searchResults.map((news) => (
-                  <NewsCard key={news.id} news={news} variant="horizontal" />
+                  <div key={news.id} className="glass-card dark:glass-card-dark rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-gray-200/50 dark:border-zinc-800/50 transform hover:-translate-y-1">
+                    <NewsCard news={news} variant="horizontal" />
+                  </div>
                 ))}
               </div>
             ) : (
-              <div className="bg-gray-50 p-10 text-center text-gray-500 border border-gray-200">
-                <p className="text-xl font-bold mb-2">No results found.</p>
-                <p className="text-sm">Try using different keywords or check your spelling.</p>
+              <div className="glass-card dark:glass-card-dark p-12 text-center text-gray-500 shadow-xl border border-gray-200/50 dark:border-zinc-800/50 rounded-2xl flex flex-col items-center justify-center min-h-[400px]">
+                <div className="w-16 h-16 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center mb-4 border border-gray-200 dark:border-zinc-700">
+                   <span className="text-3xl opacity-50">🔍</span>
+                </div>
+                <p className="text-2xl font-black mb-2 text-gray-800 dark:text-gray-200">No results found.</p>
+                <p className="text-gray-500 dark:text-gray-400 font-medium">Try using different keywords or check your spelling.</p>
               </div>
             )}
           </div>
