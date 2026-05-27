@@ -121,19 +121,19 @@ export default function CricketScore() {
   return (
     <div className="bg-zinc-950 text-white border-y border-red-700/50 py-1.5 px-4 font-sans text-xs flex flex-wrap items-center justify-between gap-4 overflow-hidden relative shadow-inner">
       {flashWicket && (
-        <div className="absolute inset-0 bg-red-700 flex items-center justify-center font-black tracking-widest text-white text-sm uppercase animate-pulse z-20 gap-2">
+        <div className="absolute inset-0 bg-red-700 flex items-center justify-center font-black tracking-widest text-white text-sm uppercase z-20 gap-2 animate-flash-wicket">
           <FaFire className="text-white animate-bounce" /> WICKET FALLEN !!! <FaFire className="text-white animate-bounce" />
         </div>
       )}
       {flashBoundary && (
-        <div className="absolute inset-0 bg-emerald-600 flex items-center justify-center font-black tracking-widest text-white text-sm uppercase animate-bounce z-20 gap-2">
+        <div className="absolute inset-0 bg-emerald-600 flex items-center justify-center font-black tracking-widest text-white text-sm uppercase z-20 gap-2 animate-flash-boundary">
           <FaBolt className="text-amber-300 animate-spin" /> {boundaryText} <FaBolt className="text-amber-300 animate-spin" />
         </div>
       )}
 
       {/* Live Label */}
-      <div className="flex items-center gap-1.5 shrink-0 bg-red-600 text-white font-black px-2 py-0.5 uppercase tracking-wider rounded-sm text-[10px] animate-pulse">
-        <FaCircle className="text-[8px] text-white" /> Live T20
+      <div className="flex items-center gap-1.5 shrink-0 bg-red-600 text-white font-black px-2.5 py-0.5 uppercase tracking-wider rounded-md text-[10px] animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.7)]">
+        <FaCircle className="text-[6px] text-white" /> Live T20
       </div>
 
       {/* Match Score */}

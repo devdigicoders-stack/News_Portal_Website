@@ -10,31 +10,31 @@
 
 /* Custom Scrollbar Styles for Premium Feel */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-zinc-100);
+  background: rgba(0, 0, 0, 0.03);
 }
 .dark ::-webkit-scrollbar-track {
-  background: var(--color-zinc-900);
+  background: rgba(255, 255, 255, 0.01);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-zinc-300);
-  border-radius: 4px;
+  background: rgba(225, 6, 0, 0.35);
+  border-radius: 10px;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: var(--color-zinc-700);
-  border-radius: 4px;
+  background: rgba(225, 6, 0, 0.45);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-zinc-400);
+  background: rgba(225, 6, 0, 0.65);
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-zinc-600);
+  background: rgba(225, 6, 0, 0.85);
 }
 
 @utility font-hind {
@@ -46,25 +46,27 @@
 }
 
 @utility live-glow {
-  box-shadow: 0 0 12px rgba(225, 6, 0, 0.4);
+  box-shadow: 0 0 12px rgba(225, 6, 0, 0.5);
   animation: glow-pulse 2s infinite ease-in-out;
 }
 
 @utility gold-glow {
-  box-shadow: 0 0 12px rgba(255, 199, 0, 0.4);
+  box-shadow: 0 0 12px rgba(255, 199, 0, 0.5);
   animation: gold-glow-pulse 2s infinite ease-in-out;
 }
 
 @utility glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
 }
 
 @utility glass-card-dark {
   background: rgba(18, 18, 18, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes glow-pulse {
@@ -135,4 +137,169 @@ input[type="submit"],
 input[type="reset"] {
   cursor: pointer;
 }
+
+/* ==========================================================================
+   PREMIUM STYLES & ANIMATIONS ADDITIONS
+   ========================================================================== */
+
+/* 1. Logo Metallic Glint Sweep Animation */
+@keyframes shine {
+  0% {
+    left: -150%;
+  }
+  40%, 100% {
+    left: 150%;
+  }
+}
+
+@utility logo-shine {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -150%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.15) 30%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0.15) 70%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(25deg);
+    animation: shine 4.5s infinite cubic-bezier(0.43, 0.13, 0.15, 0.99);
+  }
+}
+
+/* 2. Premium Category Glows & Cards Hover Elevation */
+@utility hover-glow-politics {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(225, 6, 0, 0.15), 0 8px 10px -6px rgba(225, 6, 0, 0.15);
+    border-color: rgba(225, 6, 0, 0.25) !important;
+  }
+}
+
+@utility hover-glow-sports {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.15), 0 8px 10px -6px rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.25) !important;
+  }
+}
+
+@utility hover-glow-tech {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15), 0 8px 10px -6px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.25) !important;
+  }
+}
+
+@utility hover-glow-business {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(245, 158, 11, 0.15), 0 8px 10px -6px rgba(245, 158, 11, 0.15);
+    border-color: rgba(245, 158, 11, 0.25) !important;
+  }
+}
+
+@utility hover-glow-entertainment {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(236, 72, 153, 0.15), 0 8px 10px -6px rgba(236, 72, 153, 0.15);
+    border-color: rgba(236, 72, 153, 0.25) !important;
+  }
+}
+
+@utility hover-glow-default {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* 3. Floating Live TV Heartbeat Pulse Animation */
+@keyframes pulse-ripple {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.85;
+    box-shadow: 0 0 0 0 rgba(225, 6, 0, 0.65), 0 20px 25px -5px rgba(0,0,0,0.3);
+  }
+  70% {
+    transform: scale(1.02);
+    opacity: 1;
+    box-shadow: 0 0 0 14px rgba(225, 6, 0, 0), 0 20px 25px -5px rgba(0,0,0,0.3);
+  }
+  100% {
+    transform: scale(0.96);
+    opacity: 0.85;
+    box-shadow: 0 0 0 0 rgba(225, 6, 0, 0), 0 20px 25px -5px rgba(0,0,0,0.3);
+  }
+}
+
+@utility live-pulse-button {
+  animation: pulse-ripple 2.4s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+/* 4. Cricket Broadcast Flash Slide/Scale Animation */
+@keyframes flash-slide-in {
+  0% {
+    transform: scale(0.94) translateY(8px);
+    opacity: 0;
+  }
+  8% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  92% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.04) translateY(-8px);
+    opacity: 0;
+  }
+}
+
+@utility animate-flash-wicket {
+  animation: flash-slide-in 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@utility animate-flash-boundary {
+  animation: flash-slide-in 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 5. Like/Bookmark Action Button Micro-pops */
+@keyframes icon-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@utility animate-icon-pop {
+  animation: icon-pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 6. Smooth Global Transitions for Dark Mode Theme Toggles */
+body, header, nav, main, footer, .glass-card, .glass-card-dark, .bg-white, .dark\:bg-zinc-900, .bg-gray-50, .dark\:bg-zinc-950, .border, .border-b, .border-t, .border-y {
+  transition: background-color 500ms ease-in-out, color 500ms ease-in-out, border-color 500ms ease-in-out, box-shadow 500ms ease-in-out;
+}
+
 

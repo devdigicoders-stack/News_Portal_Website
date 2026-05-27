@@ -92,7 +92,7 @@ export default function Navbar() {
         {/* Main Branding Bar (Glassmorphic) */}
         <div className="glass-card dark:glass-card-dark px-4 lg:px-8 py-3 flex items-center justify-between transition-colors z-40 border-b border-gray-200/30 dark:border-zinc-800/50">
           <Link to="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="bg-gradient-to-br from-red-600 to-red-800 text-white font-black text-3xl lg:text-5xl px-3 py-1 rounded-md shadow-lg border-b-4 border-red-900 flex items-center justify-center transform group-hover:scale-105 transition-transform animate-pulse-once">
+            <div className="bg-gradient-to-br from-red-600 to-red-800 text-white font-black text-3xl lg:text-5xl px-3 py-1 rounded-md shadow-lg border-b-4 border-red-900 flex items-center justify-center transform group-hover:scale-105 transition-transform animate-pulse-once logo-shine">
               {language === 'hi' ? 'न्यूज़' : 'NEWS'}
             </div>
             <div className="flex flex-col justify-center">

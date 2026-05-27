@@ -78,7 +78,7 @@ export default function FloatingLiveTV() {
       ) : (
         <button 
           onClick={() => setIsOpen(true)}
-          className="bg-red-600 text-white font-black uppercase text-xs tracking-widest px-4.5 py-3.5 rounded-full shadow-2xl flex items-center gap-2 hover:bg-red-700 hover:scale-105 active:scale-95 transition-all border-2 border-white dark:border-zinc-800"
+          className="bg-red-600 text-white font-black uppercase text-xs tracking-widest px-4.5 py-3.5 rounded-full flex items-center gap-2 hover:bg-red-700 hover:scale-105 active:scale-95 transition-all border-2 border-white dark:border-zinc-800 live-pulse-button"
         >
           <span className="w-2 h-2 bg-white rounded-full animate-ping"></span>
           <FaTv className="text-sm" /> Watch Live TV

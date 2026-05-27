@@ -14,6 +14,19 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
   const t = (key) => uiTranslations[language]?.[key] || key;
   const translatedNews = translateNews(news, language);
 
+  const getHoverGlowClass = (cat) => {
+    switch (cat?.toLowerCase()) {
+      case 'politics': return 'hover-glow-politics';
+      case 'sports': return 'hover-glow-sports';
+      case 'technology': return 'hover-glow-tech';
+      case 'business': return 'hover-glow-business';
+      case 'entertainment': return 'hover-glow-entertainment';
+      default: return 'hover-glow-default';
+    }
+  };
+
+  const hoverGlow = getHoverGlowClass(news.category);
+
   const handleSave = (e) => {
     e.preventDefault();
     if (!user) { alert(language === 'hi' ? 'समाचार सहेजने के लिए कृपया लॉगिन करें।' : 'Please login to save news.'); return; }
@@ -41,11 +54,11 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
 
   const actionButtons = (
     <div className="flex items-center gap-3 mt-2 shrink-0">
-      <button onClick={handleLike} className={`flex items-center gap-1 transition-colors ${isLiked ? 'text-red-650' : 'hover:text-red-650 text-gray-400 dark:text-zinc-500'}`}>
-        {isLiked ? <FaHeart size={14} className="text-red-600" /> : <FiHeart size={14} />}
+      <button onClick={handleLike} className={`flex items-center gap-1 transition-all active:scale-75 hover:scale-125 ${isLiked ? 'text-red-650' : 'hover:text-red-650 text-gray-400 dark:text-zinc-500'}`} title={isLiked ? t("Liked") : t("Like")}>
+        {isLiked ? <FaHeart size={14} className="text-red-600 animate-icon-pop" /> : <FiHeart size={14} />}
       </button>
-      <button onClick={handleSave} className={`transition-colors ${isSaved ? 'text-red-650 font-bold' : 'hover:text-red-650 text-gray-400 dark:text-zinc-500'}`}>
-        {isSaved ? <FaBookmark size={14} className="text-red-600" /> : <FiBookmark size={14} />}
+      <button onClick={handleSave} className={`transition-all active:scale-75 hover:scale-125 ${isSaved ? 'text-red-650 font-bold' : 'hover:text-red-650 text-gray-400 dark:text-zinc-500'}`} title={isSaved ? t("Saved") : t("Save")}>
+        {isSaved ? <FaBookmark size={14} className="text-red-600 animate-icon-pop" /> : <FiBookmark size={14} />}
       </button>
     </div>
   );
@@ -54,7 +67,7 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
     return (
       <Link
         to={`/news/${news.id}`}
-        className="group relative block w-full h-full overflow-hidden bg-black"
+        className={`group relative block w-full h-full overflow-hidden bg-black rounded-2xl ${hoverGlow}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -96,7 +109,7 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
 
   if (variant === 'compact') {
     return (
-      <Link to={`/news/${news.id}`} className="flex gap-3 group items-start border-b border-gray-100 dark:border-zinc-800 pb-3 mb-3 last:border-0 last:pb-0 last:mb-0"
+      <Link to={`/news/${news.id}`} className="flex gap-3 group items-start border-b border-gray-100 dark:border-zinc-800 pb-3 mb-3 last:border-0 last:pb-0 last:mb-0 hover:bg-gray-50/50 dark:hover:bg-zinc-800/30 p-2 rounded-lg transition-all duration-300"
         onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <div className="relative shrink-0 w-24 h-20 sm:w-28 sm:h-24 overflow-hidden rounded-sm bg-zinc-150 dark:bg-zinc-850">
           <img src={news.image} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-110'}`} />
@@ -142,7 +155,7 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
 
   if (variant === 'horizontal') {
     return (
-      <div className="flex flex-col sm:flex-row gap-4 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 p-3 group hover:shadow-md transition-all rounded-sm"
+      <div className={`flex flex-col sm:flex-row gap-4 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 p-3 group transition-all rounded-xl ${hoverGlow}`}
         onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Link to={`/news/${news.id}`} className="relative shrink-0 w-full sm:w-48 h-48 sm:h-32 overflow-hidden rounded-sm bg-zinc-150 dark:bg-zinc-850">
           <img src={news.image} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} />
@@ -179,7 +192,7 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
 
   // standard variant
   return (
-    <div className="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 overflow-hidden group hover:shadow-lg transition-all flex flex-col h-full rounded-sm"
+    <div className={`bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 overflow-hidden group transition-all flex flex-col h-full rounded-xl ${hoverGlow}`}
       onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Link to={`/news/${news.id}`} className="relative block h-48 sm:h-56 overflow-hidden bg-zinc-150 dark:bg-zinc-850">
         <img src={news.image} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} />
