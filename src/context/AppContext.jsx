@@ -12,6 +12,7 @@ export function AppProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('np_token') || null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const clearError = () => setError(null);
   const [articles, setArticles] = useState([]);
   const [newsLoading, setNewsLoading] = useState(true);
 
@@ -236,7 +237,8 @@ export function AppProvider({ children }) {
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return path;
     }
-    return `http://localhost:8000${path.startsWith('/') ? '' : '/'}${path}`;
+    const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    return `${backendUrl}${path.startsWith('/') ? '' : '/'}${path}`;
   };
 
   return (
