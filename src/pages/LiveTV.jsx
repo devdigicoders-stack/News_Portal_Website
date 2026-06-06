@@ -86,7 +86,19 @@ const showScheduleBilingual = {
 };
 
 export default function LiveTV() {
-  const { language } = useApp();
+  const { language, articles } = useApp();
+  const latestBreaking = (articles || []).find(n => n.breaking) || (articles || [])[0];
+  
+  const liveTvTitle = latestBreaking
+    ? (language === 'hi' ? `${latestBreaking.title} पर लाइव बहस और विश्लेषण` : `LIVE DEBATE & ANALYSIS: ${latestBreaking.title.toUpperCase()}`)
+    : (language === 'hi' ? 'पीएम आर्थिक सुधार लाइव एक्सक्लूसिव बहस और पैनल विश्लेषण' : 'PM ECONOMIC REFORMS LIVE EXCLUSIVE DEBATE & PANEL ANALYSIS');
+    
+  const liveTvDesc = latestBreaking
+    ? latestBreaking.summary
+    : (language === 'hi' 
+        ? 'देश के सबसे बड़े आर्थिक सुधार पैकेज (₹10 लाख करोड़) पर बहस जारी है। देश भर के वरिष्ठ विशेषज्ञ, पत्रकार और राजनीतिक नेता हमारे लाइव बुलेटिन डेस्क पर सीधे जुड़ रहे हैं।' 
+        : 'Debate continues on the nation\'s largest economic reform package (₹10 Lakh Crore). Senior experts, journalists and political leaders from across the country are joining live.');
+
   const [isMuted, setIsMuted] = useState(true);
   const [viewerCount, setViewerCount] = useState(842050);
   const [chatFeed, setChatFeed] = useState([
@@ -274,12 +286,10 @@ export default function LiveTV() {
             {/* Broadcast show details banner info */}
             <div className="glass-card dark:glass-card-dark border border-gray-200/50 dark:border-zinc-800/50 p-6 md:p-8 rounded-2xl shadow-xl transition-all">
               <h2 className="text-xl lg:text-2xl font-black text-gray-900 dark:text-white leading-tight uppercase flex items-center gap-3 mb-4 border-l-4 border-red-600 pl-4">
-                {language === 'hi' ? 'पीएम आर्थिक सुधार लाइव एक्सक्लूसिव बहस और पैनल विश्लेषण' : 'PM ECONOMIC REFORMS LIVE EXCLUSIVE DEBATE & PANEL ANALYSIS'}
+                {liveTvTitle}
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
-                {language === 'hi' 
-                  ? 'देश के सबसे बड़े आर्थिक सुधार पैकेज (₹10 लाख करोड़) पर बहस जारी है। देश भर के वरिष्ठ विशेषज्ञ, पत्रकार और राजनीतिक नेता हमारे लाइव बुलेटिन डेस्क पर सीधे जुड़ रहे हैं। देखते रहिए पल-पल की खबरें सिर्फ न्यूज़ पोर्टल पर।' 
-                  : 'Debate continues on the nation\'s largest economic reform package (₹10 Lakh Crore). Senior experts, journalists and political leaders from across the country are joining live on our bulletin desk. Keep watching moment-to-moment updates only on NewsPortal.'}
+                {liveTvDesc}
               </p>
             </div>
 

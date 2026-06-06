@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { newsData } from '../data/news';
 import NewsCard from './NewsCard';
 import Rashifal from './Rashifal';
 import { FiCheckCircle, FiSun, FiCloudRain, FiCloud, FiCloudLightning, FiMapPin } from 'react-icons/fi';
@@ -31,11 +30,11 @@ const cityMeta = {
 };
 
 export default function Sidebar() {
-  const { language } = useApp();
+  const { language, articles } = useApp();
   const t = (key) => uiTranslations[language]?.[key] || key;
 
-  const trendingNews = newsData.filter(n => n.trending).slice(0, 5);
-  const editorsPicks = newsData.filter(n => n.category === 'Technology' || n.category === 'World').slice(0, 3);
+  const trendingNews = (articles || []).filter(n => n.trending).slice(0, 5);
+  const editorsPicks = (articles || []).filter(n => n.category === 'Technology' || n.category === 'World').slice(0, 3);
 
   // Newsletter subscription
   const [subscribed, setSubscribed] = useState(false);

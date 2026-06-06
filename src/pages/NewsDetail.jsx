@@ -1,18 +1,18 @@
 import { useParams, Link } from 'react-router-dom';
-import { newsData } from '../data/news';
 import Sidebar from '../components/Sidebar';
 import NewsCard from '../components/NewsCard';
 import { useApp } from '../context/AppContext';
 import { useState, useEffect } from 'react';
 import { FaFacebook, FaTwitter, FaWhatsapp, FaHeart, FaBookmark, FaRegHeart, FaRegBookmark, FaUserCircle } from 'react-icons/fa';
 import { uiTranslations, translateNews } from '../data/translations';
+import { newsAPI } from '../utils/api';
 
 export default function NewsDetail() {
   const { id } = useParams();
-  const { language, user, likedNews, toggleLike, savedNews, toggleSave } = useApp();
+  const { language, user, likedNews, toggleLike, savedNews, toggleSave, articles, resolveMediaURL } = useApp();
   
-  const newsItemRaw = newsData.find((n) => n.id === parseInt(id));
-  const newsItem = translateNews(newsItemRaw, language);
+  const [newsItemRaw, setNewsItemRaw] = useState(null);
+  const [loading, setLoading] = useState(true);
   
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState([]);
@@ -25,10 +25,26 @@ export default function NewsDetail() {
   const t = (key) => uiTranslations[language]?.[key] || key;
 
   useEffect(() => {
+    async function fetchArticle() {
+      setLoading(true);
+      try {
+        const response = await newsAPI.getById(id);
+        setNewsItemRaw(response.data);
+      } catch (err) {
+        console.error('Failed to load article:', err);
+        setNewsItemRaw(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchArticle();
+  }, [id]);
+
+  useEffect(() => {
     if (newsItemRaw) {
       setComments(newsItemRaw.comments || []);
-      // Filter out the current article, get articles from same category
-      const related = newsData.filter(n => n.category === newsItemRaw.category && n.id !== newsItemRaw.id).slice(0, 3);
+      // Filter out the current article, get articles from same category from preloaded articles context
+      const related = (articles || []).filter(n => n.category === newsItemRaw.category && n.id !== newsItemRaw.id).slice(0, 3);
       setRelatedNews(related);
       window.scrollTo(0,0);
       
@@ -36,7 +52,7 @@ export default function NewsDetail() {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
     }
-  }, [newsItemRaw]);
+  }, [newsItemRaw, articles]);
 
   // Clean up speech synthesis when component unmounts
   useEffect(() => {
@@ -45,41 +61,45 @@ export default function NewsDetail() {
     };
   }, []);
 
-  if (!newsItemRaw || !newsItem) {
-    return <div className="text-center py-20 text-2xl font-bold dark:text-white">{language === 'hi' ? 'समाचार नहीं मिला।' : 'News not found.'}</div>;
-  }
+  const isLiked = newsItemRaw ? likedNews.includes(newsItemRaw.id) : false;
+  const isSaved = newsItemRaw ? savedNews.includes(newsItemRaw.id) : false;
 
-  const isLiked = likedNews.includes(newsItem.id);
-  const isSaved = savedNews.includes(newsItem.id);
-
-  const handleLike = () => {
+  const handleLike = async () => {
     if (!user) return alert(language === 'hi' ? 'लाइक करने के लिए कृपया लॉगिन करें।' : 'Please login to like this news.');
-    toggleLike(newsItem.id);
+    try {
+      await toggleLike(newsItemRaw.id);
+      const currentlyLiked = likedNews.includes(newsItemRaw.id);
+      setNewsItemRaw(prev => ({
+        ...prev,
+        likes: Math.max(0, prev.likes + (currentlyLiked ? -1 : 1))
+      }));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleSave = () => {
     if (!user) return alert(language === 'hi' ? 'बुकमार्क करने के लिए कृपया लॉगिन करें।' : 'Please login to save this news.');
-    toggleSave(newsItem.id);
+    toggleSave(newsItemRaw.id);
   };
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!user) return alert(language === 'hi' ? 'टिप्पणी करने के लिए कृपया लॉगिन करें।' : 'Please login to post a comment.');
     if (!commentText.trim()) return;
     
-    const newComment = {
-      id: Date.now(),
-      user: user.name,
-      text: commentText,
-      date: new Date().toISOString().split('T')[0]
-    };
-    
-    setComments([...comments, newComment]);
-    setCommentText('');
+    try {
+      const response = await newsAPI.addComment(id, { text: commentText.trim() });
+      setComments(response.data.comments || []);
+      setCommentText('');
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to submit comment.');
+    }
   };
 
   // Text-To-Speech function
   const handleListen = () => {
+    if (!newsItem) return;
     if (isSpeaking) {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
@@ -101,6 +121,22 @@ export default function NewsDetail() {
       default: return 'text-lg';
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen py-20 text-center font-sans flex items-center justify-center">
+        <p className="text-xl font-bold text-gray-800 dark:text-zinc-200">
+          {language === 'hi' ? 'समाचार लोड हो रहा है...' : 'Loading news article...'}
+        </p>
+      </div>
+    );
+  }
+
+  const newsItem = newsItemRaw ? translateNews(newsItemRaw, language) : null;
+
+  if (!newsItemRaw || !newsItem) {
+    return <div className="text-center py-20 text-2xl font-bold dark:text-white">{language === 'hi' ? 'समाचार नहीं मिला।' : 'News not found.'}</div>;
+  }
 
   const readTime = Math.ceil((newsItem.summary.split(' ').length + newsItem.content.split(' ').length) / 200);
 
@@ -187,13 +223,13 @@ export default function NewsDetail() {
 
             {newsItem.video ? (
               <div className="mb-8 w-full bg-black aspect-video flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-zinc-800">
-                <video src={newsItem.video} controls className="w-full h-full" poster={newsItem.image}>
+                <video src={resolveMediaURL(newsItem.video)} controls className="w-full h-full" poster={resolveMediaURL(newsItem.image)}>
                   {language === 'hi' ? 'आपका ब्राउज़र वीडियो टैग का समर्थन नहीं करता है।' : 'Your browser does not support the video tag.'}
                 </video>
               </div>
             ) : (
               <div className="mb-8 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-zinc-800 bg-black group relative">
-                <img src={newsItem.image} alt={newsItem.title} className="w-full h-auto max-h-[550px] object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" />
+                <img src={resolveMediaURL(newsItem.image)} alt={newsItem.title} className="w-full h-auto max-h-[550px] object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
               </div>
             )}

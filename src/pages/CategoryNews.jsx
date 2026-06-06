@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom';
-import { newsData } from '../data/news';
+import { useApp } from '../context/AppContext';
 import NewsCard from '../components/NewsCard';
 import Sidebar from '../components/Sidebar';
 
 export default function CategoryNews() {
   const { categoryId } = useParams();
   const categoryName = categoryId.charAt(0).toUpperCase() + categoryId.slice(1);
-  const categoryNews = newsData.filter((n) => n.category.toLowerCase() === categoryId.toLowerCase());
+  const { articles } = useApp();
+  const categoryNews = (articles || []).filter((n) => n.category.toLowerCase() === categoryId.toLowerCase());
 
   const featured = categoryNews[0];
   const rest = categoryNews.slice(1);

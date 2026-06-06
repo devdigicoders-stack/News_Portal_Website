@@ -3,17 +3,18 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FiSearch, FiMenu, FiX, FiUser, FiBookmark, FiSun, FiMoon, FiGlobe, FiMapPin } from 'react-icons/fi';
 import { FaBolt } from 'react-icons/fa';
 import { useApp } from '../context/AppContext';
-import { newsData, categories } from '../data/news';
+import { categories } from '../data/news';
 import { uiTranslations, newsTranslations } from '../data/translations';
 import CricketScore from './CricketScore';
 
 export default function Navbar() {
-  const { user, logout, darkMode, toggleDarkMode, language, setLanguage } = useApp();
+  const { user, logout, darkMode, toggleDarkMode, language, setLanguage, articles } = useApp();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const breakingNews = newsData.filter(n => n.breaking);
+  const breakingList = (articles || []).filter(n => n.breaking);
+  const breakingNews = breakingList.length > 0 ? breakingList : (articles || []).slice(0, 5);
 
   const handleSearch = (e) => {
     e.preventDefault();

@@ -12,6 +12,8 @@ export function AppProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('np_token') || null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [articles, setArticles] = useState([]);
+  const [newsLoading, setNewsLoading] = useState(true);
 
   const [savedNews, setSavedNews] = useState(() => {
     const saved = localStorage.getItem('np_saved');
@@ -50,6 +52,23 @@ export function AppProvider({ children }) {
     localStorage.setItem('np_lang', language);
   }, [language]);
 
+  // Fetch articles on mount
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
+  const fetchArticles = async () => {
+    setNewsLoading(true);
+    try {
+      const res = await newsAPI.getAll({ status: 'approved' });
+      setArticles(res.data || []);
+    } catch (err) {
+      console.error('Failed to fetch articles:', err);
+    } finally {
+      setNewsLoading(false);
+    }
+  };
+
   // Verify token on mount
   useEffect(() => {
     if (token && !user) {
@@ -62,6 +81,14 @@ export function AppProvider({ children }) {
       const response = await authAPI.getProfile();
       setUser(response.data);
       localStorage.setItem('np_user', JSON.stringify(response.data));
+      if (response.data.savedNews) {
+        setSavedNews(response.data.savedNews);
+        localStorage.setItem('np_saved', JSON.stringify(response.data.savedNews));
+      }
+      if (response.data.likedNews) {
+        setLikedNews(response.data.likedNews);
+        localStorage.setItem('np_liked', JSON.stringify(response.data.likedNews));
+      }
     } catch (err) {
       logout();
     }
@@ -78,6 +105,14 @@ export function AppProvider({ children }) {
       setUser(userData);
       localStorage.setItem('np_token', newToken);
       localStorage.setItem('np_user', JSON.stringify(userData));
+      if (userData.savedNews) {
+        setSavedNews(userData.savedNews);
+        localStorage.setItem('np_saved', JSON.stringify(userData.savedNews));
+      }
+      if (userData.likedNews) {
+        setLikedNews(userData.likedNews);
+        localStorage.setItem('np_liked', JSON.stringify(userData.likedNews));
+      }
       
       return { success: true, data: userData };
     } catch (err) {
@@ -100,6 +135,14 @@ export function AppProvider({ children }) {
       setUser(userData);
       localStorage.setItem('np_token', newToken);
       localStorage.setItem('np_user', JSON.stringify(userData));
+      if (userData.savedNews) {
+        setSavedNews(userData.savedNews);
+        localStorage.setItem('np_saved', JSON.stringify(userData.savedNews));
+      }
+      if (userData.likedNews) {
+        setLikedNews(userData.likedNews);
+        localStorage.setItem('np_liked', JSON.stringify(userData.likedNews));
+      }
       
       return { success: true, data: userData };
     } catch (err) {
@@ -164,7 +207,7 @@ export function AppProvider({ children }) {
     }
 
     try {
-      await newsAPI.like(newsId);
+      const res = await newsAPI.like(newsId);
       setLikedNews((prev) => {
         const updated = prev.includes(newsId) 
           ? prev.filter((id) => id !== newsId) 
@@ -172,6 +215,9 @@ export function AppProvider({ children }) {
         localStorage.setItem('np_liked', JSON.stringify(updated));
         return updated;
       });
+      if (res.data && res.data.likes !== undefined) {
+        setArticles(prev => prev.map(art => art.id === newsId ? { ...art, likes: res.data.likes } : art));
+      }
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to like news');
     }
@@ -185,7 +231,13 @@ export function AppProvider({ children }) {
     setLanguage(prev => prev === 'hi' ? 'en' : 'hi');
   };
 
-  const clearError = () => setError(null);
+  const resolveMediaURL = (path) => {
+    if (!path) return 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800';
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      return path;
+    }
+    return `http://localhost:8000${path.startsWith('/') ? '' : '/'}${path}`;
+  };
 
   return (
     <AppContext.Provider value={{ 
@@ -207,7 +259,11 @@ export function AppProvider({ children }) {
       language,
       setLanguage,
       toggleLanguage,
-      isAuthenticated: !!token && !!user
+      isAuthenticated: !!token && !!user,
+      articles,
+      newsLoading,
+      fetchArticles,
+      resolveMediaURL
     }}>
       {children}
     </AppContext.Provider>

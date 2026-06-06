@@ -6,7 +6,7 @@ import { useApp } from '../context/AppContext';
 import { translateNews, uiTranslations } from '../data/translations';
 
 export default function NewsCard({ news, variant = 'standard', featured = false }) {
-  const { savedNews, toggleSave, likedNews, toggleLike, user, language } = useApp();
+  const { savedNews, toggleSave, likedNews, toggleLike, user, language, resolveMediaURL } = useApp();
   const isSaved = savedNews.includes(news.id);
   const isLiked = likedNews.includes(news.id);
   const videoRef = useRef(null);
@@ -73,7 +73,7 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
       >
         {/* Background Image */}
         <img
-          src={news.image}
+          src={resolveMediaURL(news.image)}
           alt={translatedNews.title}
           className={`w-full h-full object-cover opacity-70 transition-all duration-700 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`}
         />
@@ -81,7 +81,7 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
         {news.video && (
           <video
             ref={videoRef}
-            src={news.video}
+            src={resolveMediaURL(news.video)}
             muted
             loop
             playsInline
@@ -112,9 +112,9 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
       <Link to={`/news/${news.id}`} className="flex gap-3 group items-start border-b border-gray-100 dark:border-zinc-800 pb-3 mb-3 last:border-0 last:pb-0 last:mb-0 hover:bg-gray-50/50 dark:hover:bg-zinc-800/30 p-2 rounded-lg transition-all duration-300"
         onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <div className="relative shrink-0 w-24 h-20 sm:w-28 sm:h-24 overflow-hidden rounded-sm bg-zinc-150 dark:bg-zinc-850">
-          <img src={news.image} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-110'}`} />
+          <img src={resolveMediaURL(news.image)} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-110'}`} />
           {news.video && (
-            <video ref={videoRef} src={news.video} muted loop playsInline
+            <video ref={videoRef} src={resolveMediaURL(news.video)} muted loop playsInline
               className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           )}
           {news.video && !videoRef.current?.paused === false && (
@@ -158,9 +158,9 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
       <div className={`flex flex-col sm:flex-row gap-4 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 p-3 group transition-all rounded-xl ${hoverGlow}`}
         onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Link to={`/news/${news.id}`} className="relative shrink-0 w-full sm:w-48 h-48 sm:h-32 overflow-hidden rounded-sm bg-zinc-150 dark:bg-zinc-850">
-          <img src={news.image} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} />
+          <img src={resolveMediaURL(news.image)} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} />
           {news.video && (
-            <video ref={videoRef} src={news.video} muted loop playsInline
+            <video ref={videoRef} src={resolveMediaURL(news.video)} muted loop playsInline
               className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           )}
           {news.video && (
@@ -195,9 +195,9 @@ export default function NewsCard({ news, variant = 'standard', featured = false 
     <div className={`bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 overflow-hidden group transition-all flex flex-col h-full rounded-xl ${hoverGlow}`}
       onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Link to={`/news/${news.id}`} className="relative block h-48 sm:h-56 overflow-hidden bg-zinc-150 dark:bg-zinc-850">
-        <img src={news.image} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} />
+        <img src={resolveMediaURL(news.image)} alt={translatedNews.title} className={`w-full h-full object-cover transition-all duration-500 ${news.video ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} />
         {news.video && (
-          <video ref={videoRef} src={news.video} muted loop playsInline
+          <video ref={videoRef} src={resolveMediaURL(news.video)} muted loop playsInline
             className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         )}
         {news.video && (

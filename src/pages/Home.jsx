@@ -2,14 +2,14 @@ import React from 'react';
 import NewsCard from '../components/NewsCard';
 import Sidebar from '../components/Sidebar';
 import SpeedNews from '../components/SpeedNews';
-import { newsData } from '../data/news';
 import { FaPlayCircle, FaFire, FaCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { uiTranslations } from '../data/translations';
 
 const Home = () => {
-  const { language } = useApp();
+  const { language, articles } = useApp();
+  const newsData = articles || [];
   const t = (key) => uiTranslations[language]?.[key] || key;
 
   // Organizing data for different sections
@@ -50,15 +50,16 @@ const Home = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 mt-6">
-        
-        {/* Interactive Live Highlights bar */}
+                {/* Interactive Live Highlights bar */}
         <div className="glass-card dark:glass-card-dark border-l-4 border-red-600 p-3 mb-8 rounded-xl flex items-center justify-between flex-wrap gap-2 shadow-md">
           <div className="flex items-center gap-2">
             <span className="text-xs font-black text-red-600 dark:text-red-400 uppercase tracking-widest shrink-0">{t("Live Updates:")}</span>
             <marquee className="text-xs font-semibold text-gray-800 dark:text-zinc-200 w-[200px] sm:w-[450px] md:w-[600px] lg:w-[800px]" scrollamount="4">
-              {language === 'hi' 
-                ? "[खेल] भारतीय क्रिकेट टीम ने ऑस्ट्रेलिया से 3-1 से जीती टी-20 श्रृंखला | [अंतरिक्ष] चंद्रयान-4 का सफल प्रक्षेपण, चांद के दक्षिणी ध्रुव पर पानी की खोज करेगा इसरो | [स्वास्थ्य] एम्स दिल्ली का बड़ा आविष्कार: कैंसर वैक्सीन का ट्रायल 94% सफल रहा | [बिज़नेस] शेयर बाजार में नया इतिहास: सेंसेक्स पहली बार 90,000 के पार बंद"
-                : "[SPORTS] India Wins T20 Series Against Australia 3-1 | [SPACE] ISRO Launches Chandrayaan-4 successfully | [HEALTH] AIIMS Delhi develops vaccine showing 94% efficacy in clinical trials | [BUSINESS] BSE Sensex crosses historic 90,000 mark."}
+              {newsData.length > 0 
+                ? newsData.slice(0, 5).map(n => `[${n.category.toUpperCase()}] ${n.title}`).join(' | ')
+                : (language === 'hi' 
+                    ? "[खेल] भारतीय क्रिकेट टीम ने ऑस्ट्रेलिया से 3-1 से जीती टी-20 श्रृंखला | [अंतरिक्ष] चंद्रयान-4 का सफल प्रक्षेपण, चांद के दक्षिणी ध्रुव पर पानी की खोज करेगा इसरो | [स्वास्थ्य] एम्स दिल्ली का बड़ा आविष्कार: कैंसर वैक्सीन का ट्रायल 94% सफल रहा | [बिज़नेस] शेयर बाजार में नया इतिहास: सेंसेक्स पहली बार 90,000 के पार बंद"
+                    : "[SPORTS] India Wins T20 Series Against Australia 3-1 | [SPACE] ISRO Launches Chandrayaan-4 successfully | [HEALTH] AIIMS Delhi develops vaccine showing 94% efficacy in clinical trials | [BUSINESS] BSE Sensex crosses historic 90,000 mark.")}
             </marquee>
           </div>
           <Link to="/live-tv" className="text-[10px] bg-red-600 text-white font-black px-2.5 py-1 uppercase rounded hover:bg-red-700 transition-colors flex items-center gap-1 shadow-sm">

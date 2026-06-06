@@ -1,18 +1,38 @@
 import { useLocation } from 'react-router-dom';
-import { newsData } from '../data/news';
+import { useState, useEffect } from 'react';
 import NewsCard from '../components/NewsCard';
 import Sidebar from '../components/Sidebar';
+import { newsAPI } from '../utils/api';
+import { useApp } from '../context/AppContext';
 
 export default function SearchNews() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get('q') || '';
+  const { language } = useApp();
 
-  const searchResults = newsData.filter((n) => 
-    n.title.toLowerCase().includes(query.toLowerCase()) || 
-    n.summary.toLowerCase().includes(query.toLowerCase()) ||
-    n.category.toLowerCase().includes(query.toLowerCase())
-  );
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function performSearch() {
+      if (!query.trim()) {
+        setSearchResults([]);
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      try {
+        const response = await newsAPI.getAll({ search: query });
+        setSearchResults(response.data || []);
+      } catch (err) {
+        console.error('Failed to perform search:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    performSearch();
+  }, [query]);
 
   return (
     <div className="py-8 transition-colors">
@@ -30,7 +50,11 @@ export default function SearchNews() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-8">
-            {searchResults.length > 0 ? (
+            {loading ? (
+              <div className="text-center py-20 font-bold dark:text-white">
+                {language === 'hi' ? 'खोज की जा रही है...' : 'Searching...'}
+              </div>
+            ) : searchResults.length > 0 ? (
               <div className="flex flex-col gap-6">
                 {searchResults.map((news) => (
                   <div key={news.id} className="glass-card dark:glass-card-dark rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-gray-200/50 dark:border-zinc-800/50 transform hover:-translate-y-1">

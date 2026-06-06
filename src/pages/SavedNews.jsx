@@ -1,14 +1,13 @@
 import { useApp } from '../context/AppContext';
-import { newsData } from '../data/news';
 import NewsCard from '../components/NewsCard';
 import { Navigate } from 'react-router-dom';
 
 export default function SavedNews() {
-  const { user, savedNews } = useApp();
+  const { user, savedNews, articles } = useApp();
 
   if (!user) return <Navigate to="/login" />;
 
-  const savedArticles = newsData.filter(n => savedNews.includes(n.id));
+  const savedArticles = (articles || []).filter(n => savedNews.includes(n.id));
 
   return (
     <div className="py-8 transition-colors">

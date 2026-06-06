@@ -1,12 +1,9 @@
 import { FiMail, FiPhone, FiMapPin, FiSend, FiUsers, FiAward, FiGlobe, FiTrendingUp } from 'react-icons/fi';
 import { FaNewspaper, FaFacebook, FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
-import { newsData } from '../data/news';
 import NewsCard from '../components/NewsCard';
 import Sidebar from '../components/Sidebar';
 import { useApp } from '../context/AppContext';
 import { translateNews } from '../data/translations';
-
-const latestNews = newsData.slice(0, 4);
 
 const teamImages = [
   'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop',
@@ -101,8 +98,9 @@ const contentTranslations = {
 };
 
 export default function AboutUs() {
-  const { language } = useApp();
+  const { language, articles } = useApp();
   const c = contentTranslations[language] || contentTranslations['en'];
+  const latestNews = (articles || []).slice(0, 4);
 
   const stats = [
     { icon: FiUsers, value: '50M+', label: c.readers },
